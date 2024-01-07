@@ -5,7 +5,7 @@ import datetime
 import pandas as pd
 import numpy as np
 
-fpath = r'stock_analysis3.xlsm'
+fpath = r'D:\Excel_Stock_Analysis\stock_analysis3\stock_analysis3.xlsm'
 sym_df = pd.read_excel(fpath, sheet_name='symbols')
 symbols = sym_df['Symbol'].unique()
 ticker = st.sidebar.multiselect('Select Ticker', symbols, default=st.session_state['main_ticker'])
@@ -15,6 +15,8 @@ st.caption('This page is to look at the balance sheet items for a given'
            ' tickers. You can select multiple balance sheet items by selecting multiple'
            ' balance sheet catagories in the sidebar.')
 st.divider()
+
+
 ########################################################################################################################
 # Data Processing
 ########################################################################################################################
@@ -28,13 +30,13 @@ for tick in ticker:
     data = pd.concat([bs2, data])
 
 
-
 ########################################################################################################################
 # Side Bar
 ########################################################################################################################
 bs_cat = st.sidebar.multiselect('Select Metric:',
                                 bs2['index'].unique(),
-                                default=['Cash And Cash Equivalents'])
+                                default=['Cash And Cash Equivalents', 'Total Debt'])
+
 
 ########################################################################################################################
 # More Data Processing
@@ -44,8 +46,9 @@ data = data.rename({'index':'bs_category','variable':'date', 'value':'value($M)'
 data['date'] = pd.to_datetime(data['date'])
 data['date'] = data['date'].dt.strftime('%Y-%m-%d')
 
+
 ########################################################################################################################
-# Main Page
+# Main Page - two columns
 ########################################################################################################################
 
 col1, col2 = st.columns((.6,.4), gap='small')
@@ -79,3 +82,5 @@ st.sidebar.subheader('Full name of companies:')
 for tick in ticker:
     st.sidebar.caption('{y} ({x})'.format(x=tick, y= yf.Ticker(tick).info['longName']))
 
+st.metric(label="Cracka", value="-273 K", delta="-1.2 K")
+st.toast('Click Clack, Big Dog')
