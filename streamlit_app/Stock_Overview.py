@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
-#import seaborn as sns
+import matplotlib.pyplot as plt
+import seaborn as sns
 import yfinance as yf
 import streamlit as st
 import plotly.express as px
@@ -17,7 +17,7 @@ st.set_page_config(layout='wide')
 
 
 # Pull a list of all stock tickers as of 1/6/2024
-fpath = r'stock_analysis3.xlsm'
+fpath = r'D:\Excel_Stock_Analysis\stock_analysis3\stock_analysis3.xlsm'
 sym_df = pd.read_excel(fpath, sheet_name='symbols')
 
 ########################################################################################################################
@@ -70,6 +70,7 @@ with col2:
     st.subheader('Company Info')
     st.write('Legal Name:    {x}'.format(x=company_name))
     st.write('Industry:      {x}'.format(x=info['industry']))
+    st.write('Employees:      {x}'.format(x=info['fullTimeEmployees']))
     st.write('Website:       {x}'.format(x=info['website']))
     st.write('Audit Risk:    {x}'.format(x=info['auditRisk']))
     st.write('Board Risk:    {x}'.format(x=info['boardRisk']))
