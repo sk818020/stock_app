@@ -9,4 +9,4 @@ seaborn==0.13.1
 streamlit==1.29.0
 xlwings==0.30.13
 yfinance==0.2.35
-yfinance==0.2.33
+
