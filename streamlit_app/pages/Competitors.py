@@ -43,9 +43,24 @@ fig = px.line(data,
 st.title('Competitor Analytics')
 st.plotly_chart(fig, use_container_width=True)
 st.title('News')
-for i in yf.Ticker(tick_list[0]).news:
-    i['providerPublishTime'] = strftime('%Y-%m-%d', localtime(i['providerPublishTime']))
-    st.write(str(i['providerPublishTime']) + ' - ' + '[{y}]({x})'.format(x=str(i['link']), y=str(i['title'])))
+
+news_df = pd.DataFrame(yf.Ticker(tick_list[0]).news)
+for i in range(len(news_df)):
+    news_df.iloc[i]['providerPublishTime'] = strftime('%M-%D-%y')
+    st.write('{a} - [{x}]({y})'.format(
+        a='{month}/{day}/{year}'.format(
+            day=str(localtime(news_df.iloc[i]['providerPublishTime']).tm_mday),
+            year=str(localtime(news_df.iloc[i]['providerPublishTime']).tm_year),
+            month=str(localtime(news_df.iloc[i]['providerPublishTime']).tm_mon)
+        ),
+        x=news_df.iloc[i]['title'],
+        y=news_df.iloc[i]['link']
+    ))
+
+
+#for i in yf.Ticker(tick_list[0]).news:
+#    i['providerPublishTime'] = strftime('%Y-%m-%d', localtime(i['providerPublishTime']))
+#    st.write(str(i['providerPublishTime']) + ' - ' + '[{y}]({x})'.format(x=str(i['link']), y=str(i['title'])))
 
 
 def auto_plot(ticker):
