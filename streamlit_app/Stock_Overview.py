@@ -44,7 +44,7 @@ st.caption('The purpose of this site is to show data on stocks. You can select'
            ' was developed by Jared Heiner. ')
 st.divider()
 
-a = yf.Ticker(ticker).history(start=start_date, end=end_date)
+a = yf.Ticker(ticker[0]).history(start=start_date, end=end_date)
 b = a.reset_index()
 b = b.rename(columns={'Close':'Close $ per Share'})
 b['Date'] = b['Date'].dt.strftime('%Y-%m-%d')

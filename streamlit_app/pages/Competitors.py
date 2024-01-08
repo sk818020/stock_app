@@ -18,7 +18,7 @@ fpath = r'stock_analysis3.xlsm'
 sym_df = pd.read_excel(fpath, sheet_name='symbols')
 symbols = sym_df['Symbol'].unique()
 
-tick1 = st.sidebar.multiselect('Select Competitor(s): ', symbols, default=st.session_state['main_ticker'])
+tick1 = st.sidebar.multiselect('Select Competitor(s): ', symbols, default=st.session_state['main_ticker']+['CVX', 'PSX', 'WMT'])
 tick_list = [x for x in tick1 if x != None]
 start_date = st.sidebar.date_input('Select the start date:', datetime.datetime(2020,1,1))
 end_date = st.sidebar.date_input('Select the end date', datetime.datetime.today())
