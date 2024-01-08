@@ -28,7 +28,6 @@ st.session_state['symbol_list'] = sym_df['Symbol'].unique()
 st.sidebar.title('Layout and Filters')
 ticker = st.sidebar.multiselect('Select a ticker symbol',
                       sym_df['Symbol'].unique(),default='XOM')
-#ticker = ticker[0]
 st.session_state['main_ticker'] = ticker
 start_date = st.sidebar.date_input('Start Date',value=datetime.datetime(datetime.datetime.today().year-3,
                                                                         1,1))
@@ -38,7 +37,7 @@ company_name = info['longName']
 #st.markdown('Company Name:    {x}'.format(x = company_name))
 
 ########################################################################################################################
-st.title('Stock Analysis   |   {ticker}   |   {name}'.format(ticker=ticker, name = company_name))
+st.title('Stock Analysis   |   {name} | Ticker = {ticker}'.format(ticker=ticker[0], name=company_name))
 st.caption('The purpose of this site is to show data on stocks. You can select'
            ' which stocks you would like to see by changing the ticker on the sidebar. This site'
            ' was developed by Jared Heiner. ')

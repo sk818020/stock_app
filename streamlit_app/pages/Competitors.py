@@ -8,7 +8,7 @@ import streamlit as st
 import datetime as dt
 from dateutil.relativedelta import relativedelta
 import datetime
-from time import strftime
+from time import strftime, localtime
 
 st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(layout='wide')
@@ -43,8 +43,9 @@ fig = px.line(data,
 st.title('Competitor Analytics')
 st.plotly_chart(fig, use_container_width=True)
 st.title('News')
-for i in yf.Ticker(tick_list).news:
- #   i['providerPublishTime'] = strftime('%Y-%m-%d', localtime(i['providerPublishTime']))
+st.write(tick_list[0])
+for i in yf.Ticker(tick_list[0]).news:
+    i['providerPublishTime'] = strftime('%Y-%m-%d', localtime(i['providerPublishTime']))
     st.write(str(i['providerPublishTime']) + ' - ' + '[{y}]({x})'.format(x=str(i['link']), y=str(i['title'])))
 
 
@@ -103,11 +104,4 @@ def auto_plot(ticker):
 #    plt.rcParams['text.color'] = 'white'
     return plt
 
-st.divider()
 
-col1, col2 = st.columns(2)
-with col1:
-    st.write(f"{tick_list[0]} | Autocorrelation Plot | {start_date.strftime('%d-%m-%Y')} to {end_date.strftime('%d-%m-%y')}")
-    st.pyplot(auto_plot('xom'))
-    plt.title(
-        f"{tick_list[0]} | Autocorrelation Plot | {start_date.strftime('%d-%m-%Y')} to {end_date.strftime('%d-%m-%y')}")
