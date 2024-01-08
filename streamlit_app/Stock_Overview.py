@@ -31,7 +31,9 @@ ticker = st.sidebar.multiselect('Select a ticker symbol',
 st.session_state['main_ticker'] = ticker
 start_date = st.sidebar.date_input('Start Date',value=datetime.datetime(datetime.datetime.today().year-3,
                                                                         1,1))
+st.session_state['start_date'] = start_date
 end_date = st.sidebar.date_input('End Date')
+st.session_state['end_date'] = end_date
 info = yf.Ticker(ticker[0]).info
 company_name = info['longName']
 #st.markdown('Company Name:    {x}'.format(x = company_name))

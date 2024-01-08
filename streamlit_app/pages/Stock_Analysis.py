@@ -74,7 +74,7 @@ def calc_return(data,
     start_price = data[data['date'] == data['date'].min()]['close'].iloc[0]
     end_price =   data[data['date'] == data['date'].max()]['close'].iloc[0]
 
-    st.metric(f'Start price on {start_1.date().strftime("%Y-%m-%d")}',
+    st.metric(f'Start price on {start_1.strftime("%Y-%m-%d")}',
               "$" + str(round(start_price,2)))
     st.metric(f'End price on {end_1.date().strftime("%Y-%m-%d")}',
               "$" + str(round(end_price,2)))
