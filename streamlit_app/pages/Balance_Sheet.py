@@ -81,6 +81,3 @@ with col2:
 st.sidebar.subheader('Full name of companies:')
 for tick in ticker:
     st.sidebar.caption('{y} ({x})'.format(x=tick, y= yf.Ticker(tick).info['longName']))
-
-st.metric(label="Cracka", value="-273 K", delta="-1.2 K")
-st.toast('Click Clack, Big Dog')
