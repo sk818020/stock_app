@@ -43,7 +43,6 @@ fig = px.line(data,
 st.title('Competitor Analytics')
 st.plotly_chart(fig, use_container_width=True)
 st.title('News')
-st.write(tick_list[0])
 for i in yf.Ticker(tick_list[0]).news:
     i['providerPublishTime'] = strftime('%Y-%m-%d', localtime(i['providerPublishTime']))
     st.write(str(i['providerPublishTime']) + ' - ' + '[{y}]({x})'.format(x=str(i['link']), y=str(i['title'])))
@@ -103,5 +102,7 @@ def auto_plot(ticker):
         f"{tick_list[0]} | Autocorrelation Plot | {start_date.strftime('%d-%m-%Y')} to {end_date.strftime('%d-%m-%y')}")
 #    plt.rcParams['text.color'] = 'white'
     return plt
+
+
 
 

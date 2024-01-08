@@ -13,7 +13,8 @@ from plotly.graph_objs import *
 
 ########################################################################################################################
 # Title
-########################################################################################################################
+########################################################################################################################')
+st.title('Analysis of Stock Performance')
 
 
 ########################################################################################################################
@@ -46,6 +47,39 @@ def date_test(date):
         )
         return date
 
+
+def daily_returns(df, type1):
+    df2 = df.loc[:, ['close', 'ticker', 'date']]
+    df2['simple_rtn'] = df['close'].pct_change()
+    df2['log_rtn'] = np.log(df['close'] / df['close'].shift(1))
+    fig = px.line(df2,
+                  x=df2['date'],
+                  y=df2[st.session_state['log_or_simp']],
+                  title=f'Daily Returns | {symbol[0]}'
+                  )
+    fig.update_layout(
+        font=dict(
+            family="Arial",
+            size=18,
+            color='RebeccaPurple'
+        )
+    )
+    st.plotly_chart(fig, use_container_width=True)
+
+
+def calc_return(data,
+                start_1=st.session_state['start_date'],
+                end_1=st.session_state['end_date']
+                ):
+    start_price = data[data['date'] == data['date'].min()]['close'].iloc[0]
+    end_price =   data[data['date'] == data['date'].max()]['close'].iloc[0]
+
+    st.metric(f'Start price on {start_1.date().strftime("%Y-%m-%d")}',
+              "$" + str(round(start_price,2)))
+    st.metric(f'End price on {end_1.date().strftime("%Y-%m-%d")}',
+              "$" + str(round(end_price,2)))
+    st.metric(f'1-year return %', str(round((end_price - start_price)*100/start_price,2))+ '%',
+              f'{round((end_price - start_price), 2)} per share')
 
 ########################################################################################################################
 # Get user input for symbol, end_date and start_date.
@@ -91,17 +125,16 @@ data['ticker'] = symbol[0]
 plt.figure(figsize=(10,5))
 plt.title(f"{symbol[0]} - Autocorrelation Plot")
 pd.plotting.autocorrelation_plot(series=data['close'],)
-#plt.figure(figsize=(10,5))
 
-
-
-col1, col2 = st.columns((.6,.4))
+col1, col2 = st.columns((.7,.3))
 with col1:
+    type1 = st.selectbox('How would you like to calculate daily return (simple or log)?',
+                         ['simple_rtn', 'log_rtn'])
+    st.session_state['log_or_simp'] = type1
+
+    daily_returns(df=data, type1=st.session_state['log_or_simp'])
     st.pyplot(plt, use_container_width=True)
-    st.write('')
-    st.caption('hello')
 
-
-
-
+with col2:
+    calc_return(data)
 
