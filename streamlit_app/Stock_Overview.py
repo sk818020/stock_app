@@ -8,6 +8,7 @@ import plotly.express as px
 import datetime
 from time import strftime
 
+st.session_state['main_ticker'] = 'xom'
 
 ########################################################################################################################
 # Configuration, layout, and downloading data
@@ -19,6 +20,7 @@ st.set_page_config(layout='wide')
 # Pull a list of all stock tickers as of 1/6/2024
 fpath = r'D:\Excel_Stock_Analysis\stock_analysis3\stock_analysis3.xlsm'
 sym_df = pd.read_excel(fpath, sheet_name='symbols')
+st.session_state['symbol_list'] = sym_df['Symbol'].unique()
 
 ########################################################################################################################
 # Sidebar
@@ -70,7 +72,8 @@ with col2:
     st.subheader('Company Info')
     st.write('Legal Name:    {x}'.format(x=company_name))
     st.write('Industry:      {x}'.format(x=info['industry']))
-    st.write('Employees:      {x}'.format(x=info['fullTimeEmployees']))
+    st.write('Employees:     {x}'.format(x=info['fullTimeEmployees']))
+    st.write('Market Cap:    {x}'.format(x='$' + str(round(info['enterpriseValue']/1000000000,1)) + ' B'))
     st.write('Website:       {x}'.format(x=info['website']))
     st.write('Audit Risk:    {x}'.format(x=info['auditRisk']))
     st.write('Board Risk:    {x}'.format(x=info['boardRisk']))
@@ -79,7 +82,7 @@ with col2:
     st.write('{x}'.format(
         x = info['longBusinessSummary']
     ))
-st.write('This site is powered by Straemlit and Python')
+st.write('This site is powered by Streamlit and Python')
 
 
 
