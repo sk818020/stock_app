@@ -14,7 +14,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 st.set_page_config(layout='wide')
 
 
-fpath = r'D:\Excel_Stock_Analysis\stock_analysis3\stock_analysis3.xlsm'
+fpath = r'stock_analysis3.xlsm'
 sym_df = pd.read_excel(fpath, sheet_name='symbols')
 symbols = sym_df['Symbol'].unique()
 

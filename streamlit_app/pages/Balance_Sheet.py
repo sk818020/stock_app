@@ -5,7 +5,7 @@ import datetime
 import pandas as pd
 import numpy as np
 
-fpath = r'D:\Excel_Stock_Analysis\stock_analysis3\stock_analysis3.xlsm'
+fpath = r'stock_analysis3.xlsm'
 sym_df = pd.read_excel(fpath, sheet_name='symbols')
 symbols = sym_df['Symbol'].unique()
 ticker = st.sidebar.multiselect('Select Ticker', symbols, default=st.session_state['main_ticker'])
