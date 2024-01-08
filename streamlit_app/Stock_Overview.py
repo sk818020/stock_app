@@ -30,7 +30,8 @@ ticker = st.sidebar.multiselect('Select a ticker symbol',
                       sym_df['Symbol'].unique(),default='XOM')
 ticker = ticker[0]
 st.session_state['main_ticker'] = ticker
-start_date = st.sidebar.date_input('Start Date',value=datetime.datetime(2020,1,1))
+start_date = st.sidebar.date_input('Start Date',value=datetime.datetime(datetime.datetime.today().year-3,
+                                                                        1,1))
 end_date = st.sidebar.date_input('End Date')
 info = yf.Ticker(ticker).info
 company_name = info['longName']
