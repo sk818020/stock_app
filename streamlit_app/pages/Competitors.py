@@ -45,16 +45,16 @@ st.plotly_chart(fig, use_container_width=True)
 st.title('News')
 
 news_df = pd.DataFrame(yf.Ticker(tick_list[0]).news)
-for i in range(len(news_df)-1):
-    news_df.iloc[i]['providerPublishTime'] = strftime('%M-%D-%y')
+for i in news_df:
+  #  i['providerPublishTime'] = strftime('%M-%D-%y')
     st.write('{a} - [{x}]({y})'.format(
         a='{month}/{day}/{year}'.format(
-            day=str(localtime(news_df.iloc[i]['providerPublishTime']).tm_mday),
-            year=str(localtime(news_df.iloc[i]['providerPublishTime']).tm_year),
-            month=str(localtime(news_df.iloc[i]['providerPublishTime']).tm_mon)
+            day='1',#str(localtime(i['providerPublishTime']).tm_mday),
+            year='1',#str(localtime(i['providerPublishTime']).tm_year),
+            month='2023'#str(localtime(i['providerPublishTime']).tm_mon)
         ),
-        x=news_df.iloc[i]['title'].encode(),
-        y=news_df.iloc[i]['link']
+        x='here',#'i['title'],
+        y='https://www.drudgereport.com'#i['link']
     ))
 
 
