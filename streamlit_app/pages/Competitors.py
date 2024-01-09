@@ -53,7 +53,7 @@ for i in range(len(news_df)):
             year=str(localtime(news_df.iloc[i]['providerPublishTime']).tm_year),
             month=str(localtime(news_df.iloc[i]['providerPublishTime']).tm_mon)
         ),
-        x=news_df.iloc[i]['title'],
+        x=str.encode(news_df.iloc[i]['title']),
         y=news_df.iloc[i]['link']
     ))
 

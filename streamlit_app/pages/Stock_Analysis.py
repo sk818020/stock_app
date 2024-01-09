@@ -72,7 +72,7 @@ def calc_return(data,
                 end_1=st.session_state['end_date']
                 ):
     start_price = data[data['date'] == data['date'].min()]['close'].iloc[0]
-    end_price =   data[data['date'] == data['date'].max()]['close'].iloc[0]
+    end_price = data[data['date'] == data['date'].max()]['close'].iloc[0]
 
     st.metric(f'Start price on {start_1.strftime("%Y-%m-%d")}',
               "$" + str(round(start_price,2)))
