@@ -26,8 +26,8 @@ st.session_state['symbol_list'] = sym_df['Symbol'].unique()
 # Sidebar
 ########################################################################################################################
 st.sidebar.title('Layout and Filters')
-ticker = st.sidebar.multiselect('Select a ticker symbol',
-                      sym_df['Symbol'].unique(),default='XOM')
+ticker = st.sidebar.selectbox('Select a ticker symbol',
+                      sym_df['Symbol'].unique())
 st.session_state['main_ticker'] = ticker
 start_date = st.sidebar.date_input('Start Date',value=datetime.datetime(datetime.datetime.today().year-3,
                                                                         1,1))
@@ -45,7 +45,7 @@ st.caption('The purpose of this site is to show data on stocks. You can select'
            ' was developed by Jared Heiner. ')
 st.divider()
 
-a = yf.Ticker(ticker[0]).history(start=start_date, end=end_date)
+a = yf.Ticker(st.session_state['main_ticker']).history(start=st.session_state['start_date'], end=end_date)
 b = a.reset_index()
 b = b.rename(columns={'Close':'Close $ per Share'})
 b['Date'] = b['Date'].dt.strftime('%Y-%m-%d')
